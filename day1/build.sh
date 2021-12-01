@@ -6,4 +6,10 @@ CC=cc
 CFLAGS="-Wall -Wextra -Wshadow -std=c11 -pedantic -ggdb"
 LIBS=""
 
-$CC $CFLAGS -o out/main main.c $LIBS
+OUT=out
+
+if [ ! -d "$OUT" ]; then
+    mkdir -p "$OUT"
+fi
+
+$CC $CFLAGS -o $OUT/main main.c $LIBS
