@@ -23,16 +23,16 @@ struct {
     int value;
 } typedef Instruction;
 
-Direction get_direction_from_str(const char *str, size_t size) {
-    if (strncmp(str, "up", size) == 0) {
+Direction get_direction_from_str(const char *str) {
+    if (strcmp(str, "up") == 0) {
         return UP;
     }
 
-    if (strncmp(str, "down", size) == 0) {
+    if (strcmp(str, "down") == 0) {
         return DOWN;
     }
 
-    if (strncmp(str, "forward", size) == 0) {
+    if (strcmp(str, "forward") == 0) {
         return FORWARD;
     }
 
@@ -84,7 +84,7 @@ int main(void) {
     Instruction instructions[INSTRUCTION_CAP];
     size_t read = 0;
     while (fgets(buffer, BUFF_CAP, f)) {
-        char instruction_str[7] = {0};
+        char instruction_str[8] = {0};
         char value_str[10] = {0};
         bool parsing_inst = true;
         int num_start = -1;
@@ -92,6 +92,7 @@ int main(void) {
 
         while (buffer[++i]) {
             if (buffer[i] == ' ') {
+                instruction_str[i] = '\0';
                 parsing_inst = false;
                 num_start = i + 1;
                 continue;
@@ -105,7 +106,7 @@ int main(void) {
         }
 
         Instruction inst = {
-            .direction = get_direction_from_str(instruction_str, num_start - 1),
+            .direction = get_direction_from_str(instruction_str),
             .value = (int) strtol(value_str, (char**) NULL, 10),
         };
 
