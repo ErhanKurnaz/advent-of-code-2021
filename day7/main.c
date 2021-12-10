@@ -10,27 +10,17 @@
 #define MIN(a, b) (a < b ? a : b)
 #define MAX(a, b) (a > b ? a : b)
 
-// To dumb to do merge sort, so here is insertion sort
-void insertion_sort(int* arr, int size) {
+int part1(int* positions, int size) {
+    int result = INT_MAX;
+
     for (int i = 0; i < size; ++i) {
-        int element = arr[i];
-        int j = i - 1;
-        while (j >= 0 && arr[j] > element) {
-            arr[j + 1] = arr[j];
-            j--;
+        int total = 0;
+        for (int j = 0; j < size; ++j) {
+            int distance = abs(i - positions[j]);
+            total += distance;
         }
 
-        arr[j + 1] = element;
-    }
-}
-
-int part1(int* positions, int size) {
-    int middel_val = positions[size / 2];
-
-    int result = 0;
-
-    for (int i = 0; i < size; ++i) {
-        result += abs(positions[i] - middel_val);
+        result = MIN(result, total);
     }
 
     return result;
@@ -91,9 +81,6 @@ int main(void) {
     }
 
     fclose(f);
-    int unsorted_positions[NUMS_CAP] = {0};
-    memcpy(unsorted_positions, positions, sizeof(int) * NUMS_CAP);
-    insertion_sort(positions, size);
     printf("%f\n", round((double) (size + 1) / 2));
 
     printf("part1:\t%d\n", part1(positions, size));
