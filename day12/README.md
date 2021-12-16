@@ -16,6 +16,6 @@ $ ./out/main
 expected output:
 
 ``` 
-part1:	1694
-part2:	346
+part1:	5457
+part2:	128506
 ```
