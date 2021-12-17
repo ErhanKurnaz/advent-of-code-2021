@@ -76,7 +76,7 @@ void dump_dot(FILE* f, Cave cave, Cave* caves, bool* visited) {
     fprintf(f, "    %s [shape=%s]\n", cave.name, shape);
     for (int i = 0; i < cave.link_size; ++i) {
         if (!visited[cave.links[i]]) {
-            fprintf(f, "    %s -> %s [arrowhead=none]\n", cave.name, caves[cave.links[i]].name);
+            fprintf(f, "    %s -- %s\n", cave.name, caves[cave.links[i]].name);
         }
     }
 
@@ -99,7 +99,7 @@ void generate_caves_graph(Cave* caves, int size) {
 
     bool visited[CAVES_CAP] = {0};
 
-    fprintf(f, "digraph Caves {\n");
+    fprintf(f, "graph Caves {\n");
     dump_dot(f, caves[find_cave_by_name(caves, size, "start")], caves, visited);
 
     fprintf(f, "}\n");
